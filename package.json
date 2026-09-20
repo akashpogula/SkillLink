@@ -1,0 +1,8 @@
+{
+  "name": "afcode",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node server.js",
+    "build": "cd assets/pixaai && npm install && npm run build"
+  }
+}

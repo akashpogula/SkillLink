@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillConnect — Workforce Continuity, On Demand</title>
+    <meta name="description"
+        content="An integrated platform dedicated to mitigating seasonal and temporary unemployment. We connect specialized local capability with immediate service requirements, ensuring workforce continuity.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@500;600;700&family=Syne:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/landing.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Premium Animations Override -->
+    <style>
+        /* Smooth Staggered Reveal */
+        @keyframes premiumSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stagger-1 {
+            opacity: 0;
+            animation: premiumSlideUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0s;
+        }
+
+        .stagger-2 {
+            opacity: 0;
+            animation: premiumSlideUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.1s;
+        }
+
+        .stagger-3 {
+            opacity: 0;
+            animation: premiumSlideUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.2s;
+        }
+
+        .stagger-4 {
+            opacity: 0;
+            animation: premiumSlideUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.3s;
+        }
+
+        .stagger-5 {
+            opacity: 0;
+            animation: premiumSlideUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.4s;
+        }
+
+        /* Premium Nav Links */
+        .nav-link-standard {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            font-size: 0.875rem;
+            letter-spacing: 0.025em;
+            transition: color 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            padding: 0.5rem 1rem;
+        }
+
+        .nav-link-standard:hover {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .nav-link-cta {
+            position: relative;
+            overflow: hidden;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 0.875rem;
+            letter-spacing: 0.025em;
+            padding: 0.6rem 1.5rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background-color: transparent;
+            transition: color 0.5s cubic-bezier(0.19, 1, 0.22, 1), border-color 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-link-cta::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ffffff;
+            z-index: 0;
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .nav-link-cta:hover {
+            color: #000000;
+            border-color: #ffffff;
+        }
+
+        .nav-link-cta:hover::before {
+            transform: scaleY(1);
+        }
+
+        /* Premium Global Button Animations */
+        .magnetic {
+            display: inline-block;
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            will-change: transform;
+        }
+
+        .btn {
+            position: relative;
+            overflow: hidden;
+            transition: color 0.5s cubic-bezier(0.19, 1, 0.22, 1), border-color 0.5s cubic-bezier(0.19, 1, 0.22, 1), transform 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ffffff;
+            z-index: 0;
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1) !important;
+        }
+
+        .btn:hover {
+            color: #000000 !important;
+            border-color: #ffffff !important;
+        }
+
+        .btn:hover::before {
+            transform: scaleY(1) !important;
+        }
+
+        /* Hero Action Buttons */
+        .hero-btn-secondary {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0.875rem 2rem;
+            border-radius: 9999px;
+            background-color: transparent;
+            color: #ffffff !important;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: color 0.5s cubic-bezier(0.19, 1, 0.22, 1), border-color 0.5s cubic-bezier(0.19, 1, 0.22, 1), transform 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
+            will-change: transform;
+        }
+
+        .hero-btn-secondary::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ffffff;
+            z-index: 0;
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1) !important;
+        }
+
+        .hero-btn-secondary:hover {
+            color: #000000 !important;
+            border-color: #ffffff;
+        }
+
+        .hero-btn-secondary:hover::before {
+            transform: scaleY(1) !important;
+        }
+    </style>
+</head>
+
+<body class="cursor-none bg-transparent" style="background-color: transparent;">
+
+    <!-- Page Transition Overlay -->
+    <div class="page-transition-overlay" aria-hidden="true"></div>
+
+
+
+    <!-- Navbar -->
+    <header
+        style="position: fixed; top: 1.5rem; left: 0; right: 0; margin: 0 auto; width: calc(100% - 3rem); max-width: 64rem; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; z-index: 100; background-color: rgba(0, 0, 0, 0.6); -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 9999px; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3); transform: translateZ(0); isolation: isolate;">
+        <a href="./index.html" class="logo brand-name"
+            style="text-decoration: none; font-size: 1.5rem; font-weight: bold; color: white;">SkillLink</a>
+        <nav class="nav-links" style="display: flex; justify-content: center; align-items: center; gap: 1.5rem;">
+            <a href="./pages/client.html" class="nav-link-standard cursor-none">Explore Talent</a>
+            <a href="./pages/client.html" class="nav-link-standard cursor-none">Request Service</a>
+            <a href="./pages/provider.html" class="nav-link-cta cursor-none btn-antigravity"><span
+                    style="position: relative; z-index: 10;">Register Capability</span></a>
+        </nav>
+    </header>
+
+    <main class="bg-transparent">
+        <!-- 1. Hero -->
+        <section id="hero" class="relative w-full overflow-hidden bg-transparent"
+            style="position: relative; width: 100%; min-height: 100vh; display: flex; flex-direction: column; align-items: center; text-align: center; justify-content: center; background-color: transparent;">
+
+            <!-- TOP PAGE EXCLUSIVE BACKGROUND (Scrolls away) -->
+            <div class="absolute top-0 left-0 w-full pointer-events-none flex justify-center items-center" style="height: 120vh; z-index: 1; overflow: hidden; opacity: 0.8;">
+                <svg width="100%" height="100%" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="mix-blend-mode: screen; filter: drop-shadow(0 0 4px rgba(255,255,255,0.1));">
+                    <defs>
+                        <mask id="fadeMask">
+                            <rect x="0" y="0" width="1200" height="800" fill="url(#fadeGrad)" />
+                        </mask>
+                        <radialGradient id="fadeGrad" cx="50%" cy="20%" r="60%">
+                            <stop offset="0%" stop-color="white" />
+                            <stop offset="80%" stop-color="black" />
+                        </radialGradient>
+                    </defs>
+                    <g mask="url(#fadeMask)">
+                        <style>
+                            .chip-solid { stroke: rgba(255,255,255,0.1); stroke-width: 1.5; fill: none; }
+                            .chip-anim { stroke: rgba(255,255,255,0.4); stroke-width: 1.5; fill: none; stroke-dasharray: 4 40; animation: chipFlow 3s linear infinite; }
+                            @keyframes chipFlow { to { stroke-dashoffset: -88; } }
+                            .node-dot { fill: rgba(255,255,255,0.3); }
+                            .node-glow { fill: rgba(255,255,255,0.8); filter: drop-shadow(0 0 8px rgba(255,255,255,0.8)); }
+                        </style>
+                        
+                        <!-- Base Solid Circuit Lines -->
+                        <g class="chip-solid">
+                            <path d="M 600,150 L 500,150 L 450,100 L 250,100 L 200,50 L 0,50" />
+                            <path d="M 500,150 L 400,250 L 250,250 L 200,300 L 0,300" />
+                            <path d="M 580,150 L 550,200 L 400,200 L 350,350 L 150,350" />
+                            <path d="M 600,150 L 700,150 L 750,100 L 950,100 L 1000,50 L 1200,50" />
+                            <path d="M 700,150 L 800,250 L 950,250 L 1000,300 L 1200,300" />
+                            <path d="M 620,150 L 650,200 L 800,200 L 850,350 L 1050,350" />
+                            <path d="M 600,150 L 600,350 L 550,400 L 550,600" />
+                            <path d="M 400,250 L 400,450" />
+                            <path d="M 800,250 L 800,450" />
+                            <path d="M 250,250 L 250,400 L 200,450" />
+                            <path d="M 950,250 L 950,400 L 1000,450" />
+                        </g>
+
+                        <!-- Animated Energy Pulses -->
+                        <g class="chip-anim">
+                            <path d="M 600,150 L 500,150 L 450,100 L 250,100 L 200,50 L 0,50" />
+                            <path d="M 600,150 L 700,150 L 750,100 L 950,100 L 1000,50 L 1200,50" />
+                            <path d="M 700,150 L 800,250 L 950,250 L 1000,300 L 1200,300" />
+                            <path d="M 500,150 L 400,250 L 250,250 L 200,300 L 0,300" />
+                        </g>
+                        
+                        <!-- Connecting Nodes -->
+                        <circle cx="600" cy="150" r="8" class="node-glow" />
+                        
+                        <circle cx="500" cy="150" r="3" class="node-dot" />
+                        <circle cx="450" cy="100" r="3" class="node-dot" />
+                        <circle cx="250" cy="100" r="5" class="node-glow" />
+                        <circle cx="200" cy="50" r="3" class="node-dot" />
+                        
+                        <circle cx="400" cy="250" r="5" class="node-glow" />
+                        <circle cx="250" cy="250" r="3" class="node-dot" />
+                        <circle cx="200" cy="300" r="3" class="node-dot" />
+                        
+                        <circle cx="550" cy="200" r="3" class="node-dot" />
+                        <circle cx="400" cy="200" r="3" class="node-dot" />
+                        <circle cx="350" cy="350" r="5" class="node-glow" />
+                        
+                        <circle cx="700" cy="150" r="3" class="node-dot" />
+                        <circle cx="750" cy="100" r="3" class="node-dot" />
+                        <circle cx="950" cy="100" r="5" class="node-glow" />
+                        <circle cx="1000" cy="50" r="3" class="node-dot" />
+                        
+                        <circle cx="800" cy="250" r="5" class="node-glow" />
+                        <circle cx="950" cy="250" r="3" class="node-dot" />
+                        <circle cx="1000" cy="300" r="3" class="node-dot" />
+                        
+                        <circle cx="650" cy="200" r="3" class="node-dot" />
+                        <circle cx="800" cy="200" r="3" class="node-dot" />
+                        <circle cx="850" cy="350" r="5" class="node-glow" />
+                        
+                        <circle cx="600" cy="350" r="3" class="node-dot" />
+                        <circle cx="550" cy="400" r="3" class="node-dot" />
+                        
+                        <circle cx="400" cy="450" r="3" class="node-dot" />
+                        <circle cx="800" cy="450" r="3" class="node-dot" />
+                        <circle cx="250" cy="400" r="3" class="node-dot" />
+                        <circle cx="950" cy="400" r="3" class="node-dot" />
+                    </g>
+                </svg>
+                <!-- Top edge aurora blend -->
+                <div style="position: absolute; top: -10vh; left: 0; right: 0; height: 60vh; background: radial-gradient(ellipse 60% 100% at 50% 0%, rgba(255,255,255,0.03), transparent 70%); mix-blend-mode: screen; filter: blur(50px);"></div>
+            </div>
+
+            <!-- LEFT FLANK CHIP LINE (Data traces extending down the left side) -->
+            <div class="absolute pointer-events-none" style="top: 15vh; left: 0; width: 30vw; max-width: 500px; height: 80vh; z-index: 1; opacity: 1; overflow: hidden;
+                mask-image: radial-gradient(ellipse at left center, black 40%, transparent 100%);
+                -webkit-mask-image: radial-gradient(ellipse at left center, black 40%, transparent 100%);">
+                <svg width="100%" height="100%" viewBox="0 0 500 800" preserveAspectRatio="xMinYMid slice" xmlns="http://www.w3.org/2000/svg" style="mix-blend-mode: screen; filter: drop-shadow(0 0 4px rgba(255,255,255,0.15)) blur(3px); transform: scaleX(-1);">
+                    <g class="chip-solid" style="stroke: rgba(255,255,255,0.15); stroke-width: 1.5; fill: none;">
+                        <path d="M 0,100 L 150,100 L 250,200 L 450,200 L 500,150" />
+                        <path d="M 150,100 L 200,50 L 350,50 L 400,100" />
+                        <path d="M 0,300 L 100,300 L 200,400 L 450,400 L 500,350" />
+                        <path d="M 100,300 L 200,200 L 350,200 L 400,250" />
+                        <path d="M 0,500 L 150,500 L 250,600 L 450,600 L 500,550" />
+                        <path d="M 150,500 L 200,400 L 350,400 L 400,450" />
+                        <path d="M 50,0 L 50,200 L 100,250 L 100,450 L 50,500 L 50,700" />
+                    </g>
+                    <g class="chip-anim" style="stroke: rgba(255,255,255,0.5); stroke-width: 2; fill: none; stroke-dasharray: 4 40; animation: chipFlow 3s linear infinite;">
+                        <path d="M 0,100 L 150,100 L 250,200 L 450,200 L 500,150" />
+                        <path d="M 0,300 L 100,300 L 200,400 L 450,400 L 500,350" />
+                        <path d="M 0,500 L 150,500 L 250,600 L 450,600 L 500,550" />
+                    </g>
+                </svg>
+            </div>
+
+            <!-- RIGHT FLANK CHIP LINE (Data traces extending down the right side) -->
+            <div class="absolute pointer-events-none" style="top: 15vh; right: 0; width: 30vw; max-width: 500px; height: 80vh; z-index: 1; opacity: 1; overflow: hidden;
+                mask-image: radial-gradient(ellipse at right center, black 40%, transparent 100%);
+                -webkit-mask-image: radial-gradient(ellipse at right center, black 40%, transparent 100%);">
+                <svg width="100%" height="100%" viewBox="0 0 500 800" preserveAspectRatio="xMaxYMid slice" xmlns="http://www.w3.org/2000/svg" style="mix-blend-mode: screen; filter: drop-shadow(0 0 4px rgba(255,255,255,0.15)) blur(3px);">
+                    <g class="chip-solid" style="stroke: rgba(255,255,255,0.15); stroke-width: 1.5; fill: none;">
+                        <path d="M 500,100 L 350,100 L 250,200 L 50,200 L 0,150" />
+                        <path d="M 350,100 L 300,50 L 150,50 L 100,100" />
+                        <path d="M 500,300 L 400,300 L 300,400 L 50,400 L 0,350" />
+                        <path d="M 400,300 L 300,200 L 150,200 L 100,250" />
+                        <path d="M 500,500 L 350,500 L 250,600 L 50,600 L 0,550" />
+                        <path d="M 350,500 L 300,400 L 150,400 L 100,450" />
+                        <path d="M 450,0 L 450,200 L 400,250 L 400,450 L 450,500 L 450,700" />
+                    </g>
+                    <g class="chip-anim" style="stroke: rgba(255,255,255,0.5); stroke-width: 2; fill: none; stroke-dasharray: 4 40; animation: chipFlow 3s linear infinite;">
+                        <path d="M 500,100 L 350,100 L 250,200 L 50,200 L 0,150" />
+                        <path d="M 500,300 L 400,300 L 300,400 L 50,400 L 0,350" />
+                        <path d="M 500,500 L 350,500 L 250,600 L 50,600 L 0,550" />
+                    </g>
+                </svg>
+            </div>
+
+            <!-- INTERACTIVE DOT GRID BACKGROUND (LOCKED TO VIEWPORT) -->
+            <div id="hero-interactive-bg" class="fixed inset-0 overflow-hidden bg-[#05050A] pointer-events-none"
+                style="z-index: -1; --x: 50%; --y: 42%;">
+
+                <!-- Layer 1: Dim base dot grid -->
+                <div class="absolute inset-0 opacity-[0.16]"
+                    style="background-image: radial-gradient(rgba(255,255,255,0.9) 1px, transparent 1px); background-size: 22px 22px;">
+                </div>
+
+                <div class="interactive-grid-dots" aria-hidden="true" style="background-image: radial-gradient(rgba(255,255,255,0.4) 1px, transparent 1px); 
+                        background-size: 22px 22px; 
+                        -webkit-mask-image: radial-gradient(100% 100% at 50% 0%, black 20%, transparent 80%); 
+                        mask-image: radial-gradient(100% 100% at 50% 0%, black 20%, transparent 80%);">
+                </div>
+
+                <!-- Interactive Glow Follower -->
+                <div class="interactive-glow" aria-hidden="true"
+                    style="background: radial-gradient(520px circle at var(--x) var(--y), rgba(255,255,255,0.14), rgba(200,200,200,0.06) 40%, transparent 72%);">
+                </div>
+
+                <!-- Soft Top Ambient Glow -->
+                <div class="absolute inset-0 pointer-events-none z-[-1]" aria-hidden="true"
+                    style="background: radial-gradient(120% 90% at 50% -10%, rgba(255,255,255,0.10), transparent 55%);">
+                </div>
+
+                <!-- Layer 5: Edge fade (blends grid into darkness) -->
+                <div class="absolute inset-0 pointer-events-none"
+                    style="background: radial-gradient(ellipse 75% 75% at center, transparent 30%, #05050A 100%);">
+                </div>
+
+            </div>
+
+            <!-- Aceternity / Linear Lamp Hero Effect -->
+            <div class="lamp-container"
+                style="position: fixed; top: 8%; left: 0; right: 0; display: flex; align-items: flex-start; justify-content: center; pointer-events: none; z-index: 2; mix-blend-mode: screen;">
+                <!-- Left Cone -->
+                <div class="lamp-cone"
+                    style="position: absolute; right: 50%; height: 35rem; background-image: conic-gradient(from 70deg at right top, rgba(255,255,255,0.6), transparent 50%); -webkit-mask-image: radial-gradient(100% 100% at right top, white 0%, transparent 80%); mask-image: radial-gradient(100% 100% at right top, white 0%, transparent 80%); pointer-events: none;">
+                </div>
+
+                <!-- Right Cone -->
+                <div class="lamp-cone"
+                    style="position: absolute; left: 50%; height: 35rem; background-image: conic-gradient(from 290deg at left top, transparent 50%, rgba(255,255,255,0.6)); -webkit-mask-image: radial-gradient(100% 100% at left top, white 0%, transparent 80%); mask-image: radial-gradient(100% 100% at left top, white 0%, transparent 80%); pointer-events: none;">
+                </div>
+
+                <!-- Deep Ambient Bloom (Base Wide Dispersion) -->
+                <div class="lamp-bloom"
+                    style="position: absolute; top: 0; width: 90rem; height: 30rem; border-radius: 50%; background: radial-gradient(50% 50% at 50% 50%, rgba(255,255,255,0.2) 0%, transparent 100%); filter: blur(60px); pointer-events: none;">
+                </div>
+
+                <!-- Core Glow Ball (Hotspot) -->
+                <div class="lamp-bloom"
+                    style="position: absolute; top: 0; width: 45rem; height: 12rem; border-radius: 50%; background: radial-gradient(50% 50% at 50% 50%, rgba(255,255,255,0.5) 0%, transparent 100%); filter: blur(30px); pointer-events: none;">
+                </div>
+
+                <!-- Ultra-Smooth Narrow & Small Beam of Line (Appears ONLY when scrolled through two cards) -->
+                <div class="lamp-beam-line" aria-hidden="true" style="opacity: 0; transform: translateX(-50%) scaleY(0); pointer-events: none;"></div>
+            </div>
+
+            <!-- Content Container -->
+            <div class="relative z-10 before:absolute before:inset-[-4rem] before:-z-10 before:bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.3)_0%,transparent_70%)] before:pointer-events-none"
+                style="position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; width: 100%; max-width: 64rem; margin: 0 auto; padding-top: 0;">
+
+                <!-- 1. Badge -->
+                <div class="hero-badge flex justify-center items-center m-0 stagger-1">
+                    <span class="hero-badge-dot"></span>
+                    SKILL &amp; OPPORTUNITY NETWORK
+                </div>
+
+                <!-- 2 & 3. Headline and Subtitle -->
+                <div class="hero-title-container flex justify-center w-full m-0 stagger-2"
+                    style="margin-top: 1rem; margin-bottom: 1.5rem;">
+                    <h1 class="hero-title text-center m-0" id="hero-title"
+                        style="font-size: clamp(2.5rem, 5vw + 0.5rem, 5rem);">
+                        <span class="animate-text-shine" style="display: inline-block;">Local Skill</span><br />
+                        <em class="hero-serif-accent" id="hero-on-demand" style="font-size: 0.82em;">Immediate
+                            Impact</em>
+                    </h1>
+                </div>
+
+                <!-- Action Cards (moved into Hero) -->
+                <div class="two-worlds-grid stagger-3"
+                    style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; width: 92vw; max-width: 92vw; position: relative; z-index: 20; padding: 0 1rem; margin-bottom: 2rem;">
+                    <div class="world-card world-client fade-up"
+                        style="padding: 2rem 4rem; background: rgba(15, 15, 15, 0.65); -webkit-backdrop-filter: blur(20px) saturate(1.4); backdrop-filter: blur(20px) saturate(1.4); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); align-items: center; text-align: center;">
+                        <h3 class="text-3xl font-bold text-white mb-4">Find Local Help</h3>
+                        <p class="text-zinc-400 mb-8 mx-auto leading-relaxed" style="max-width: 28rem;">Connect with trusted, background-checked professionals in your local area for immediate, reliable service. Whether you need urgent home repairs, expert consulting, or specialized labor, post your requirements and find the perfect match instantly.</p>
+                        <a href="./pages/client.html" class="magnetic group relative inline-block overflow-hidden rounded-full bg-white px-8 py-3 font-semibold text-black">
+                            <!-- The Expanding Black Circle -->
+                            <span class="absolute left-1/2 top-1/2 z-0 h-[300%] w-[300%] -translate-x-1/2 -translate-y-1/2 scale-0 rounded-full bg-[#030305] transition-transform duration-500 ease-out group-hover:scale-100"></span>
+                            
+                            <!-- The Text (Forced to stay on top) -->
+                            <span class="relative z-10 transition-colors duration-300 group-hover:text-white">Request Help</span>
+                        </a>
+                    </div>
+                    <div class="world-card world-provider fade-up delay-1"
+                        style="padding: 2rem 4rem; background: rgba(15, 15, 15, 0.65); -webkit-backdrop-filter: blur(20px) saturate(1.4); backdrop-filter: blur(20px) saturate(1.4); border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); align-items: center; text-align: center;">
+                        <h3 class="text-3xl font-bold text-white mb-4">Offer Your Skills</h3>
+                        <p class="text-zinc-400 mb-8 mx-auto leading-relaxed" style="max-width: 28rem;">Join our growing network of verified professionals to find consistent work opportunities. Build a stellar reputation with your neighbors, manage your own schedule, and maximize your earning potential right in your own community.</p>
+                        <a href="./pages/provider.html" class="btn btn-secondary magnetic"><span
+                                style="position: relative; z-index: 10;">Register Your Skills</span></a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- 2. The Narrative / Problem -->
+        <section id="narrative" class="section-narrative bg-transparent" style="padding: 3rem 0; min-height: auto; background-color: transparent;">
+            <div class="container narrative-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+                <div class="narrative-text fade-up" style="display: flex; justify-content: flex-start; padding-right: 2rem;">
+                    <h2 class="massive-stacked-text" style="display: flex; flex-direction: column; align-items: flex-start; text-align: left; font-family: var(--font-family-display, sans-serif); font-size: clamp(2rem, 4.2vw, 4.5rem); font-weight: 900; line-height: 0.9; letter-spacing: -0.03em; margin: 0; text-transform: lowercase; position: relative; z-index: 10;">
+                        <span style="color: #ffffff; text-transform: capitalize;">Connecting</span>
+                        <span style="color: transparent; -webkit-text-stroke: 2px rgba(255, 255, 255, 0.4);">local</span>
+                        <span style="color: transparent; -webkit-text-stroke: 2px rgba(255, 255, 255, 0.4);">needs</span>
+                        <span style="color: #ffffff;">with local</span>
+                        <span style="color: #ffffff;">talent.</span>
+                    </h2>
+                </div>
+                <div class="narrative-visual" style="display: flex; justify-content: center; align-items: center;">
+                    <div class="particle-reveal-wrapper relative"
+                        style="position: relative; width: 100%; max-width: 22rem; display: flex; justify-content: center; align-items: center;">
+                        <canvas class="particle-canvas absolute top-0 left-0 w-full h-full pointer-events-none z-0"
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;"></canvas>
+                        <p class="particle-text text-large relative z-10 text-white/70 text-left leading-relaxed"
+                            style="position: relative; z-index: 10; color: rgba(255,255,255,0.7); font-size: 1.15rem; line-height: 1.75;"
+                            data-text="SkillConnect bridges localized capacity deficits. Whether addressing critical facility maintenance or deploying specialized technical expertise, activate qualified capability within your economic zone.">
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. How It Works -->
+        <section id="how-it-works" class="section-how-it-works bg-transparent"
+            style="padding-top: 1rem; margin-top: 0; min-height: auto; background-color: transparent;">
+            <div class="container">
+                <div class="steps-header fade-up">
+                    <h2>Frictionless Service Procurement.</h2>
+                    <p>Specify operational requirements. Identify verified capability. Deploy directly.</p>
+                </div>
+
+                <!-- STICKY STACKING WRAPPER -->
+                <div class="sticky-cards-wrapper" style="position: relative; margin-top: 4rem; padding-bottom: 20vh;">
+
+                    <!-- Card 01 -->
+                    <div class="sticky-card spotlight-block transition-opacity duration-700 ease-in-out"
+                        style="position: sticky; top: 10vh; z-index: 1; margin-bottom: 5vh; border-radius: 24px; overflow: hidden; background: linear-gradient(180deg, rgba(20, 20, 28, 0.88) 0%, rgba(10, 10, 14, 0.94) 100%); -webkit-backdrop-filter: blur(24px) saturate(1.2); backdrop-filter: blur(24px) saturate(1.2); padding: 0; border: 1px solid rgba(255, 255, 255, 0.18); box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.35), 0 0 35px -4px rgba(255, 255, 255, 0.12), 0 0 80px -8px rgba(255, 255, 255, 0.07), 0 25px 60px -15px rgba(0, 0, 0, 0.95);">
+                        <div style="position: relative; display: flex; flex-wrap: wrap; min-height: 440px;">
+                            <!-- Edge-to-Edge Blended Art -->
+                            <div class="card-art-container"
+                                style="position: absolute; right: 0; top: 0; bottom: 0; width: 65%; -webkit-mask-image: linear-gradient(to right, transparent, black 40%); mask-image: linear-gradient(to right, transparent, black 40%); overflow: hidden; z-index: 0; pointer-events: none;">
+                                <div class="card-art" style="width: 100%; height: 100%; position: relative;">
+                                    <div
+                                        style="position: absolute; top: -10%; right: -15%; width: 140%; height: 140%; background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(20,20,20,0.8) 100%); clip-path: polygon(100% 0, 100% 100%, 0 50%); opacity: 0.4; mix-blend-mode: screen; transform: rotate(-15deg);">
+                                    </div>
+                                    <div
+                                        style="position: absolute; top: 10%; right: -5%; width: 120%; height: 120%; background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(40,40,40,0.8) 100%); clip-path: polygon(100% 0, 100% 100%, 0 50%); opacity: 0.5; mix-blend-mode: color-dodge; transform: rotate(-5deg);">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Left: Content -->
+                            <div class="card-content"
+                                style="flex: 1 1 50%; max-width: 60%; padding: 4rem; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 10;">
+                                <div class="card-num"
+                                    style="position: absolute; top: 2.5rem; right: 3rem; font-family: var(--font-family-display); font-size: 2.5rem; font-weight: 700; color: #ffffff; opacity: 0.1;">
+                                    01</div>
+                                <h3 style="font-size: 2.25rem; margin-bottom: 1rem; color: #ffffff;">Tell Us What You
+                                    Need</h3>
+                                <p
+                                    style="font-size: 1.15rem; line-height: 1.7; color: rgba(255,255,255,0.7); margin-bottom: 2rem;">
+                                    Describe your job requirements in detail, or browse our catalog of local services to
+                                    find the right fit.</p>
+                                <div><a href="./pages/client.html" class="magnetic group relative inline-block overflow-hidden rounded-full bg-white px-8 py-3 font-semibold text-black text-sm" style="border: 1px solid rgba(255,255,255,0.15);">
+                                    <!-- The Expanding Black Circle -->
+                                    <span class="absolute left-1/2 top-1/2 z-0 h-[300%] w-[300%] -translate-x-1/2 -translate-y-1/2 scale-0 rounded-full bg-[#030305] transition-transform duration-500 ease-out group-hover:scale-100"></span>
+                                    
+                                    <!-- The Text (Forced to stay on top) -->
+                                    <span class="relative z-10 transition-colors duration-300 group-hover:text-white">Explore Catalog</span>
+                                </a></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 02 -->
+                    <div class="sticky-card spotlight-block transition-opacity duration-700 ease-in-out"
+                        style="position: sticky; top: 12vh; z-index: 2; margin-bottom: 5vh; border-radius: 24px; overflow: hidden; background: linear-gradient(180deg, rgba(20, 20, 28, 0.88) 0%, rgba(10, 10, 14, 0.94) 100%); -webkit-backdrop-filter: blur(24px) saturate(1.2); backdrop-filter: blur(24px) saturate(1.2); padding: 0; border: 1px solid rgba(255, 255, 255, 0.18); box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.35), 0 0 35px -4px rgba(255, 255, 255, 0.12), 0 0 80px -8px rgba(255, 255, 255, 0.07), 0 25px 60px -15px rgba(0, 0, 0, 0.95);">
+                        <div style="position: relative; display: flex; flex-wrap: wrap; min-height: 440px;">
+                            <!-- Edge-to-Edge Blended Art -->
+                            <div class="card-art-container"
+                                style="position: absolute; right: 0; top: 0; bottom: 0; width: 65%; -webkit-mask-image: linear-gradient(to right, transparent, black 40%); mask-image: linear-gradient(to right, transparent, black 40%); overflow: hidden; z-index: 0; pointer-events: none;">
+                                <div class="card-art" style="width: 100%; height: 100%; position: relative;">
+                                    <div
+                                        style="position: absolute; top: 50%; left: 70%; width: 140%; aspect-ratio: 1; transform: translate(-50%, -50%); border: 80px solid rgba(255, 255, 255, 0.08); border-radius: 50%; mix-blend-mode: screen;">
+                                    </div>
+                                    <div
+                                        style="position: absolute; top: 50%; left: 70%; width: 90%; aspect-ratio: 1; transform: translate(-50%, -50%); border: 50px solid rgba(255, 255, 255, 0.15); border-radius: 50%; mix-blend-mode: color-dodge;">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Left: Content -->
+                            <div class="card-content"
+                                style="flex: 1 1 50%; max-width: 60%; padding: 4rem; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 10;">
+                                <div class="card-num"
+                                    style="position: absolute; top: 2.5rem; right: 3rem; font-family: var(--font-family-display); font-size: 2.5rem; font-weight: 700; color: #ffffff; opacity: 0.1;">
+                                    02</div>
+                                <h3 style="font-size: 2.25rem; margin-bottom: 1rem; color: #ffffff;">Choose the Right
+                                    Person</h3>
+                                <p
+                                    style="font-size: 1.15rem; line-height: 1.7; color: rgba(255,255,255,0.7); margin-bottom: 2rem;">
+                                    Review verified profiles, check past work, and read genuine reviews from your
+                                    neighbors before you hire.</p>
+                                <div><a href="./pages/client.html" class="magnetic group relative inline-block overflow-hidden rounded-full bg-white px-8 py-3 font-semibold text-black text-sm" style="border: 1px solid rgba(255,255,255,0.15);">
+                                    <!-- The Expanding Black Circle -->
+                                    <span class="absolute left-1/2 top-1/2 z-0 h-[300%] w-[300%] -translate-x-1/2 -translate-y-1/2 scale-0 rounded-full bg-[#030305] transition-transform duration-500 ease-out group-hover:scale-100"></span>
+                                    
+                                    <!-- The Text (Forced to stay on top) -->
+                                    <span class="relative z-10 transition-colors duration-300 group-hover:text-white">View Providers</span>
+                                </a></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 03 -->
+                    <div class="sticky-card spotlight-block transition-opacity duration-700 ease-in-out"
+                        style="position: sticky; top: 14vh; z-index: 3; margin-bottom: 5vh; border-radius: 24px; overflow: hidden; background: linear-gradient(180deg, rgba(20, 20, 28, 0.88) 0%, rgba(10, 10, 14, 0.94) 100%); -webkit-backdrop-filter: blur(24px) saturate(1.2); backdrop-filter: blur(24px) saturate(1.2); padding: 0; border: 1px solid rgba(255, 255, 255, 0.18); box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.35), 0 0 35px -4px rgba(255, 255, 255, 0.12), 0 0 80px -8px rgba(255, 255, 255, 0.07), 0 25px 60px -15px rgba(0, 0, 0, 0.95);">
+                        <div style="position: relative; display: flex; flex-wrap: wrap; min-height: 440px;">
+                            <!-- Edge-to-Edge Blended Art -->
+                            <div class="card-art-container"
+                                style="position: absolute; right: 0; top: 0; bottom: 0; width: 65%; -webkit-mask-image: linear-gradient(to right, transparent, black 40%); mask-image: linear-gradient(to right, transparent, black 40%); overflow: hidden; z-index: 0; pointer-events: none;">
+                                <div class="card-art" style="width: 100%; height: 100%; position: relative;">
+                                    <div
+                                        style="position: absolute; top: -30%; right: -10%; width: 120%; height: 160%; background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.15) 0%, transparent 70%); mix-blend-mode: screen; transform: rotate(20deg);">
+                                    </div>
+                                    <div
+                                        style="position: absolute; bottom: -20%; right: 5%; width: 100%; aspect-ratio: 1; background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, transparent 60%); mix-blend-mode: color-dodge;">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Left: Content -->
+                            <div class="card-content"
+                                style="flex: 1 1 50%; max-width: 60%; padding: 4rem; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 10;">
+                                <div class="card-num"
+                                    style="position: absolute; top: 2.5rem; right: 3rem; font-family: var(--font-family-display); font-size: 2.5rem; font-weight: 700; color: #ffffff; opacity: 0.1;">
+                                    03</div>
+                                <h3 style="font-size: 2.25rem; margin-bottom: 1rem; color: #ffffff;">Get to Work</h3>
+                                <p
+                                    style="font-size: 1.15rem; line-height: 1.7; color: rgba(255,255,255,0.7); margin-bottom: 2rem;">
+                                    Connect directly with your chosen worker. No hidden fees or delays—just straight to
+                                    getting the job done.</p>
+                                <div><a href="./pages/client.html" class="magnetic group relative inline-block overflow-hidden rounded-full bg-white px-8 py-3 font-semibold text-black text-sm" style="border: 1px solid rgba(255,255,255,0.15);">
+                                    <!-- The Expanding Black Circle -->
+                                    <span class="absolute left-1/2 top-1/2 z-0 h-[300%] w-[300%] -translate-x-1/2 -translate-y-1/2 scale-0 rounded-full bg-[#030305] transition-transform duration-500 ease-out group-hover:scale-100"></span>
+                                    
+                                    <!-- The Text (Forced to stay on top) -->
+                                    <span class="relative z-10 transition-colors duration-300 group-hover:text-white">Request Service</span>
+                                </a></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- MID-PAGE MARKETPLACE BRIDGE SECTION -->
+        <section class="relative w-full max-w-4xl mx-auto px-6 py-12 md:py-16 text-center z-20 bg-transparent"
+            style="padding: 3rem 1.5rem; margin: 0 auto; background-color: transparent;">
+            <p class="text-base md:text-lg leading-relaxed text-zinc-300 max-w-3xl mx-auto"
+                style="font-size: clamp(1rem, 1.5vw, 1.125rem); line-height: 1.75; color: rgba(212, 212, 216, 0.85); max-width: 48rem; margin: 0 auto;">
+                A simple, direct marketplace bridging the gap between skilled workers and the people who need them.
+                Built on trust, driven by hard work. No middlemen. Just reliable help. Find verified locals for
+                construction, agriculture, and everyday home maintenance instantly.
+            </p>
+
+            <!-- Inline Action Buttons -->
+            <div class="mt-8 flex flex-wrap items-center justify-center gap-4"
+                style="margin-top: 2rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 1rem;">
+                <a href="./pages/client.html"
+                    class="btn btn-invert transition-colors duration-800 text-white hover:text-black magnetic"><span
+                        style="position: relative; z-index: 10;">Request Service</span></a>
+                <a href="./pages/provider.html"
+                    class="btn btn-invert transition-colors duration-800 text-white hover:text-black magnetic"><span
+                        style="position: relative; z-index: 10;">Register Capability</span></a>
+            </div>
+        </section>
+
+        <!-- 4. Featured Providers -->
+        <section id="featured" class="section-featured spotlight-block transition-opacity duration-700 ease-in-out opacity-30" style="background-color: transparent;">
+            <div class="container">
+                <div class="featured-header fade-up">
+                    <h2>Trusted Local Workers</h2>
+                    <a href="./pages/client.html" class="btn btn-secondary magnetic"><span
+                            style="position: relative; z-index: 10;">View all workers</span></a>
+                </div>
+                <div id="featured-providers-container" class="featured-providers-grid fade-up delay-1">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Services -->
+        <section id="services" class="section-services spotlight-block transition-opacity duration-700 ease-in-out opacity-30" style="background-color: transparent;">
+            <div class="container">
+                <h2 class="fade-up section-title">Optimizing the Local Workforce.</h2>
+                <div id="services-grid" class="services-grid fade-up delay-1">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- 7. Closing CTA -->
+        <section id="closing-cta" class="section-closing text-center spotlight-block transition-opacity duration-700 ease-in-out opacity-30" style="background-color: transparent;">
+            <div class="container">
+                <h1 class="fade-up" style="font-size: var(--font-size-5xl);">Sustain Workforce Continuity.</h1>
+                <div class="hero-ctas fade-up delay-1" style="justify-content: center; margin-top: var(--space-8);">
+                    <a href="./pages/client.html" class="btn btn-primary btn-lg magnetic"><span
+                            style="position: relative; z-index: 10;">Request a Service</span></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer bg-transparent" style="background-color: transparent;">
+        <div class="container footer-inner">
+            <a href="./index.html" class="logo brand-name">SkillConnect</a>
+            <p>&copy; 2026 SkillConnect. Infrastructure for workforce continuity and capability deployment.</p>
+        </div>
+    </footer>
+
+    <!-- GSAP + ScrollTrigger -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+
+    <!-- JS -->
+    <script src="js/premium.js" defer></script>
+    <script type="module" src="js/landing.js"></script>
+    <script src="js/particle-reveal.js" defer></script>
+
+    <!-- START PREMIUM CURSOR BLOCK -->
+    <style>
+        /* Force hide default cursor everywhere */
+        body,
+        a,
+        button,
+        input,
+        textarea {
+            cursor: none !important;
+        }
+    </style>
+
+    <!-- The Cursor Element -->
+    <div id="premium-cursor"
+        style="position: fixed; top: 0; left: 0; width: 32px; height: 32px; background-color: #fff; border-radius: 50%; pointer-events: none; z-index: 999999; mix-blend-mode: difference; transform: translate(-50%, -50%); opacity: 0;">
+    </div>
+
+    <!-- The Tracking Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cursor = document.getElementById('premium-cursor');
+            if (!cursor || typeof gsap === 'undefined') return;
+
+            let hasMoved = false;
+
+            window.addEventListener('mousemove', (e) => {
+                if (!hasMoved) {
+                    gsap.to(cursor, { opacity: 1, duration: 0.3 });
+                    hasMoved = true;
+                }
+
+                gsap.to(cursor, {
+                    x: e.clientX,
+                    y: e.clientY,
+                    duration: 0.15,
+                    ease: "power2.out",
+                    overwrite: "auto"
+                });
+            });
+
+            window.addEventListener('mousedown', () => gsap.to(cursor, { scale: 0.8, duration: 0.1, overwrite: "auto" }));
+            window.addEventListener('mouseup', () => gsap.to(cursor, { scale: 1, duration: 0.1, overwrite: "auto" }));
+        });
+    </script>
+    <!-- END PREMIUM CURSOR BLOCK -->
+
+    <!-- START SCROLL-LINKED LIGHT ANIMATION -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+                gsap.registerPlugin(ScrollTrigger);
+
+                // Ensure beam line is 100% hidden at page load / top of page
+                gsap.set(".lamp-beam-line", { opacity: 0, scaleY: 0, transformOrigin: "top center" });
+
+                // --- 1. START BEAM ONLY WHEN SCROLLED THROUGH THE TWO CARDS ---
+                const heroCardsTl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: ".two-worlds-grid",
+                        start: "top 25%", // Trigger ONLY when scrolled down so cards are near top of viewport!
+                        end: "bottom 20%", // Extends through the two cards
+                        scrub: 1,
+                    }
+                });
+
+                // Move lamp container down so beam is positioned right between the two cards
+                heroCardsTl.to(".lamp-container", {
+                    top: "35%",
+                    ease: "power1.out"
+                }, 0);
+
+                // The beam line emerges directly between the two cards!
+                heroCardsTl.to(".lamp-beam-line", {
+                    opacity: 1,
+                    scaleY: 1,
+                    ease: "power1.out"
+                }, 0);
+
+                // Wide cones fade as light focuses into the central beam
+                heroCardsTl.to(".lamp-cone", {
+                    opacity: 0,
+                    ease: "power1.out"
+                }, 0);
+
+                // --- 2. COME DOWN WITH SCROLL THROUGH NARRATIVE ---
+                const narrativeTl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: "#narrative",
+                        start: "top 75%",
+                        end: "bottom 30%",
+                        scrub: 1,
+                    }
+                });
+
+                // Lamp & beam come down with scroll
+                narrativeTl.to(".lamp-container", {
+                    top: "50%",
+                    ease: "power1.out"
+                }, 0);
+
+                // Beam stays focused, smooth, and compact
+                narrativeTl.to(".lamp-beam-line", {
+                    scaleY: 1.05,
+                    opacity: 1,
+                    ease: "none"
+                }, 0);
+                
+                // Soft ambient bloom scales up to illuminate center area
+                narrativeTl.to(".lamp-bloom", {
+                    scale: 1.25,
+                    opacity: 0.45,
+                    ease: "power1.out"
+                }, 0);
+
+                // --- 3. GO UP WHEN THE THREE CARDS REACH & SCROLL DOWN MORE ---
+                const threeCardsTl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: "#how-it-works",
+                        start: "top 75%",    // When the three cards section reaches the viewport
+                        end: "top 5%",      // As the three cards reach top area
+                        scrub: 1,
+                    }
+                });
+
+                // The beam & lamp go UP!
+                threeCardsTl.to(".lamp-container", {
+                    top: "-30%",
+                    ease: "power2.inOut"
+                }, 0);
+
+                // Beam line smoothly retracts upward and fades out
+                threeCardsTl.to(".lamp-beam-line", {
+                    y: -150,
+                    scaleY: 0,
+                    opacity: 0,
+                    ease: "power2.inOut"
+                }, 0);
+
+                threeCardsTl.to(".lamp-bloom", {
+                    opacity: 0,
+                    ease: "power2.inOut"
+                }, 0);
+
+                // --- SPOTLIGHT REVEAL FOR CONTENT BLOCKS ---
+                const spotlightBlocks = document.querySelectorAll('.spotlight-block');
+                spotlightBlocks.forEach((block) => {
+                    ScrollTrigger.create({
+                        trigger: block,
+                        start: "top 85%",    // Trigger when block is fully visible
+                        end: "bottom 25%",   // Remain active until bottom passes near the top
+                        toggleClass: "opacity-100", // GSAP will toggle this class
+                        markers: false
+                    });
+                });
+            }
+        });
+    </script>
+    <!-- END SCROLL-LINKED LIGHT ANIMATION -->
+
+</body>
+
+</html>

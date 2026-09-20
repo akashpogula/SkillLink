@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillConnect - Client</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/client.css">
+    
+    <!-- Tailwind CSS (for layout utilities like fixed, inset-0) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#030305',
+                        surface: '#0A0A0F',
+                        primary: '#ffffff',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- Page Transition Overlay -->
+    <div class="page-transition-overlay" aria-hidden="true"></div>
+
+    <!-- Premium Cinematic Dot Grid -->
+    <div class="fixed inset-0 z-[-2] pointer-events-none bg-[#020205]" style="
+            background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1.5px, transparent 1.5px); 
+            background-size: 32px 32px; 
+            -webkit-mask-image: radial-gradient(ellipse 100% 100% at 50% 30%, black 10%, transparent 80%); 
+            mask-image: radial-gradient(ellipse 100% 100% at 50% 30%, black 10%, transparent 80%);
+         ">
+    </div>
+
+    <!-- INTERACTIVE DOT GRID BACKGROUND & LIGHT EMISSION -->
+    <div id="hero-interactive-bg" class="fixed inset-0 overflow-hidden bg-[#05050A] pointer-events-none"
+        style="z-index: -1; --x: 50%; --y: 42%;">
+        
+        <!-- Low-Opacity Light Emission Gradient (Centered behind dialog) -->
+        <div class="absolute inset-0 pointer-events-none" aria-hidden="true" style="
+            background: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.08) 0%, transparent 50%);
+            mix-blend-mode: screen; filter: blur(40px);">
+        </div>
+
+        <!-- Layer 1: Dim base dot grid -->
+        <div class="absolute inset-0 opacity-[0.16]"
+            style="background-image: radial-gradient(rgba(255,255,255,0.9) 1px, transparent 1px); background-size: 22px 22px;">
+        </div>
+        <!-- Layer 2: Interactive bright dots following cursor -->
+        <div class="interactive-grid-dots" aria-hidden="true" style="
+            position: absolute; inset: 0;
+            background-image: radial-gradient(rgba(255,255,255,1) 1.5px, transparent 1.5px);
+            background-size: 22px 22px;
+            -webkit-mask-image: radial-gradient(144px circle at var(--x) var(--y), black 0%, transparent 100%);
+            mask-image: radial-gradient(144px circle at var(--x) var(--y), black 0%, transparent 100%);
+            mix-blend-mode: screen;">
+        </div>
+        <!-- Interactive Glow Follower -->
+        <div class="interactive-glow" aria-hidden="true" style="
+            position: absolute; inset: 0;
+            background: radial-gradient(circle at var(--x) var(--y), rgba(255, 255, 255, 0.12) 0%, transparent 144px);
+            mix-blend-mode: screen;">
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <header class="client-navbar hidden" id="client-nav">
+        <div class="container client-navbar-inner">
+            <a href="#" class="nav-brand" id="nav-logo">SkillConnect</a>
+            <div class="nav-actions">
+                <div style="position:relative; margin-right: var(--space-4); cursor: pointer;" onclick="toggleNotifications()">
+                    🔔 <span id="notif-badge" class="notif-badge" style="display:none;">0</span>
+                    <div id="notif-dropdown" class="notif-dropdown" style="display:none;">
+                        <h4>Notifications</h4>
+                        <div id="notif-list" class="notif-list"></div>
+                    </div>
+                </div>
+                <span class="user-greeting" id="user-greeting">Hi, Client</span>
+                <a href="../index.html" class="nav-link btn btn-secondary btn-sm" onclick="logout()" style="margin-left: var(--space-2);">Exit</a>
+            </div>
+        </div>
+    </header>
+
+    <main id="app-container">
+        
+        <!-- ==============================================
+             1. ONBOARDING VIEW
+             ============================================== -->
+        <section id="onboarding-view" class="view active">
+            <div class="onboarding-container glass-panel fade-in">
+                <h2>Welcome to SkillConnect</h2>
+                <p class="subtitle">First, tell us what we should call you.</p>
+                
+                <form id="client-onboarding-form">
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" id="client-name" class="form-control" required placeholder="e.g. Priya Sharma">
+                    </div>
+                    <div class="form-group">
+                        <label>Where are you looking for help?</label>
+                        <input type="text" id="client-location" class="form-control" required placeholder="e.g. Bandra, Mumbai">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg" style="width:100%; margin-top:var(--space-4);">Continue</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- ==============================================
+             2. DASHBOARD VIEW
+             ============================================== -->
+        <section id="dashboard-view" class="view">
+            <div class="page-container fade-in">
+                <div class="dashboard-hero">
+                    <h1 id="dash-greeting">Good morning.</h1>
+                    <p class="text-large">What can we help you get done today?</p>
+                    
+                    <div class="dashboard-search-bar" onclick="navigate('search')">
+                        <input type="text" class="form-control" placeholder="Try plumber, electrician, tailoring..." readonly style="cursor:text;">
+                        <button class="btn btn-primary">Search</button>
+                    </div>
+                </div>
+
+                <div class="section-heading mt-12">
+                    <h2>Your requests</h2>
+                </div>
+                <div id="client-requests-container" class="requests-feed">
+                    <!-- Populated by JS -->
+                </div>
+
+                <div class="section-heading mt-12">
+                    <h2>Explore services</h2>
+                </div>
+                <div id="dash-categories" class="dash-categories-grid">
+                    <!-- Populated by JS -->
+                </div>
+
+                <div class="section-heading mt-12">
+                    <h2>People nearby who can help</h2>
+                    <a href="#" class="view-all" onclick="navigate('search')">View all</a>
+                </div>
+                <div id="dash-providers" class="dash-providers-grid">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ==============================================
+             3. SEARCH & DISCOVER VIEW
+             ============================================== -->
+        <section id="search-view" class="view">
+            <div class="page-container">
+                <div class="page-header" style="margin-bottom: 1rem;">
+                    <a href="#" class="nav-link" onclick="navigate('dashboard')">← Back to Dashboard</a>
+                </div>
+                
+                <div class="search-layout">
+                    <!-- Filters Side Panel / Mobile Drawer -->
+                    <div class="mobile-filter-header" style="display:none; margin-bottom: 1rem;">
+                        <button class="btn btn-secondary" onclick="toggleMobileFilters()">☰ Filters</button>
+                    </div>
+                    
+                    <aside class="filters-panel" id="filters-panel">
+                        <div class="filter-header" style="display:flex; justify-content:space-between; align-items:center;">
+                            <h3>Filters</h3>
+                            <button class="btn btn-secondary btn-sm mobile-close-filter" onclick="toggleMobileFilters()" style="display:none;">✕</button>
+                        </div>
+                        <hr style="border-color: var(--color-border-default); margin: 1rem 0;">
+                        <div class="form-group">
+                            <label>Search Query</label>
+                            <input type="text" id="filter-query" class="form-control" placeholder="Search...">
+                        </div>
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select id="filter-category" class="form-control">
+                                <option value="">All Categories</option>
+                                <!-- Populated by JS -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Availability</label>
+                            <select id="filter-status" class="form-control">
+                                <option value="">Any Status</option>
+                                <option value="Ready">Ready / Available</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-secondary btn-block" onclick="applyFilters()">Apply Filters</button>
+                        <button class="btn btn-secondary btn-block" style="border:none; margin-top:0.5rem;" onclick="clearFilters()">Clear</button>
+                    </aside>
+
+                    <!-- Results -->
+                    <div>
+                        <h2 style="margin-bottom: 1.5rem;" id="search-results-title">All Providers</h2>
+                        <div class="providers-grid" id="search-results-grid">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==============================================
+             4. PROVIDER PROFILE VIEW
+             ============================================== -->
+        <section id="profile-view" class="view">
+            <div class="page-container">
+                <div class="page-header" style="margin-bottom: 1rem;">
+                    <a href="#" class="nav-link" onclick="navigate('search')">← Back to Results</a>
+                </div>
+
+                <div id="profile-content-area">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ==============================================
+             5. REQUEST SERVICE MODAL
+             ============================================== -->
+        <div id="request-modal" class="modal-overlay" style="display:none;">
+            <div class="modal-content glass-panel scale-in">
+                <h2>Request service</h2>
+                <div id="request-provider-context" class="modal-context"></div>
+                
+                <form id="request-form">
+                    <div class="form-group">
+                        <label>What do you need help with?</label>
+                        <select id="req-service" class="form-control" required></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Service Location</label>
+                        <input type="text" id="req-location" class="form-control" required>
+                    </div>
+                    <div style="display:flex; gap:1rem;">
+                        <div class="form-group" style="flex:1;">
+                            <label>Preferred Date</label>
+                            <input type="date" id="req-date" class="form-control" required>
+                        </div>
+                        <div class="form-group" style="flex:1;">
+                            <label>Preferred Time</label>
+                            <input type="time" id="req-time" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Additional Details</label>
+                        <textarea id="req-details" class="form-control" rows="3" placeholder="Add a few details so the provider knows what you need."></textarea>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeRequestModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Send request</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- ==============================================
+             6. REVIEW MODAL
+             ============================================== -->
+        <div id="review-modal" class="modal-overlay" style="display:none;">
+            <div class="modal-content glass-panel scale-in" style="max-width:400px;">
+                <h2>How did it go?</h2>
+                <p class="subtitle">Share your experience. Your review helps others choose with confidence.</p>
+                <form id="review-form">
+                    <div class="form-group">
+                        <label>Rating (1-5)</label>
+                        <input type="number" id="rev-rating" class="form-control" min="1" max="5" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Comment</label>
+                        <textarea id="rev-text" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeReviewModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Submit review</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- JS (dependency order: mock-data -> state -> client) -->
+    <script src="../js/cursor.js" defer></script>
+    <script src="../js/premium.js" defer></script>
+    <script type="module" src="../js/mock-data.js"></script>
+    <script type="module" src="../js/state.js"></script>
+    <script type="module" src="../js/client.js"></script>
+
+    <!-- Ultra-Premium Dual-Element Cursor -->
+    <div id="cursor-dot" class="fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference transition-transform duration-150" style="transform: translate(-50%, -50%);"></div>
+    <div id="cursor-ring" class="fixed top-0 left-0 w-8 h-8 border border-white/30 rounded-full pointer-events-none z-[9998] transition-transform duration-300 ease-out" style="transform: translate(-50%, -50%);"></div>
+</body>
+</html>
