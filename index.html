@@ -272,42 +272,7 @@
                             <path d="M 500,150 L 400,250 L 250,250 L 200,300 L 0,300" />
                         </g>
                         
-                        <!-- Connecting Nodes -->
-                        <circle cx="600" cy="150" r="8" class="node-glow" />
-                        
-                        <circle cx="500" cy="150" r="3" class="node-dot" />
-                        <circle cx="450" cy="100" r="3" class="node-dot" />
-                        <circle cx="250" cy="100" r="5" class="node-glow" />
-                        <circle cx="200" cy="50" r="3" class="node-dot" />
-                        
-                        <circle cx="400" cy="250" r="5" class="node-glow" />
-                        <circle cx="250" cy="250" r="3" class="node-dot" />
-                        <circle cx="200" cy="300" r="3" class="node-dot" />
-                        
-                        <circle cx="550" cy="200" r="3" class="node-dot" />
-                        <circle cx="400" cy="200" r="3" class="node-dot" />
-                        <circle cx="350" cy="350" r="5" class="node-glow" />
-                        
-                        <circle cx="700" cy="150" r="3" class="node-dot" />
-                        <circle cx="750" cy="100" r="3" class="node-dot" />
-                        <circle cx="950" cy="100" r="5" class="node-glow" />
-                        <circle cx="1000" cy="50" r="3" class="node-dot" />
-                        
-                        <circle cx="800" cy="250" r="5" class="node-glow" />
-                        <circle cx="950" cy="250" r="3" class="node-dot" />
-                        <circle cx="1000" cy="300" r="3" class="node-dot" />
-                        
-                        <circle cx="650" cy="200" r="3" class="node-dot" />
-                        <circle cx="800" cy="200" r="3" class="node-dot" />
-                        <circle cx="850" cy="350" r="5" class="node-glow" />
-                        
-                        <circle cx="600" cy="350" r="3" class="node-dot" />
-                        <circle cx="550" cy="400" r="3" class="node-dot" />
-                        
-                        <circle cx="400" cy="450" r="3" class="node-dot" />
-                        <circle cx="800" cy="450" r="3" class="node-dot" />
-                        <circle cx="250" cy="400" r="3" class="node-dot" />
-                        <circle cx="950" cy="400" r="3" class="node-dot" />
+
                     </g>
                 </svg>
                 <!-- Top edge aurora blend -->
@@ -432,7 +397,7 @@
                     style="margin-top: 1rem; margin-bottom: 1.5rem;">
                     <h1 class="hero-title text-center m-0" id="hero-title"
                         style="font-size: clamp(2.5rem, 5vw + 0.5rem, 5rem);">
-                        <span class="animate-text-shine" style="display: inline-block;">Local Skill</span><br />
+                        <span class="hero-highlight-text" style="display: inline-block; color: #ffffff; text-shadow: 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(255,255,255,0.25), 0 0 80px rgba(255,255,255,0.1); -webkit-text-fill-color: #ffffff;">Local Skill</span><br />
                         <em class="hero-serif-accent" id="hero-on-demand" style="font-size: 0.82em;">Immediate
                             Impact</em>
                     </h1>
@@ -440,7 +405,7 @@
 
                 <!-- Action Cards (moved into Hero) -->
                 <div class="two-worlds-grid stagger-3"
-                    style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; width: 92vw; max-width: 92vw; position: relative; z-index: 20; padding: 0 1rem; margin-bottom: 2rem;">
+                    style="width: 92vw; max-width: 92vw; position: relative; z-index: 20; padding: 0 1rem; margin-bottom: 2rem;">
                     <div class="world-card world-client fade-up"
                         style="padding: 2rem 4rem; background: rgba(15, 15, 15, 0.65); -webkit-backdrop-filter: blur(20px) saturate(1.4); backdrop-filter: blur(20px) saturate(1.4); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); align-items: center; text-align: center;">
                         <h3 class="text-3xl font-bold text-white mb-4">Find Local Help</h3>
@@ -468,7 +433,7 @@
 
         <!-- 2. The Narrative / Problem -->
         <section id="narrative" class="section-narrative bg-transparent" style="padding: 3rem 0; min-height: auto; background-color: transparent;">
-            <div class="container narrative-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+            <div class="container narrative-grid">
                 <div class="narrative-text fade-up" style="display: flex; justify-content: flex-start; padding-right: 2rem;">
                     <h2 class="massive-stacked-text" style="display: flex; flex-direction: column; align-items: flex-start; text-align: left; font-family: var(--font-family-display, sans-serif); font-size: clamp(2rem, 4.2vw, 4.5rem); font-weight: 900; line-height: 0.9; letter-spacing: -0.03em; margin: 0; text-transform: lowercase; position: relative; z-index: 10;">
                         <span style="color: #ffffff; text-transform: capitalize;">Connecting</span>
@@ -703,45 +668,54 @@
     <!-- START PREMIUM CURSOR BLOCK -->
     <style>
         /* Force hide default cursor everywhere */
-        body,
-        a,
-        button,
-        input,
-        textarea {
+        *,
+        *::before,
+        *::after {
             cursor: none !important;
         }
     </style>
 
     <!-- The Cursor Element -->
     <div id="premium-cursor"
-        style="position: fixed; top: 0; left: 0; width: 32px; height: 32px; background-color: #fff; border-radius: 50%; pointer-events: none; z-index: 999999; mix-blend-mode: difference; transform: translate(-50%, -50%); opacity: 0;">
+        style="position: fixed; top: 0; left: 0; width: 32px; height: 32px; background-color: #fff; border-radius: 50%; pointer-events: none; z-index: 999999; mix-blend-mode: difference; opacity: 0; will-change: transform;">
     </div>
 
-    <!-- The Tracking Logic -->
+    <!-- The Tracking Logic (Ultra-Smooth RAF + GPU transform3d) -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const cursor = document.getElementById('premium-cursor');
-            if (!cursor || typeof gsap === 'undefined') return;
+            if (!cursor) return;
 
+            let mouseX = 0, mouseY = 0;
+            let cursorX = 0, cursorY = 0;
             let hasMoved = false;
+            let scale = 1;
+            const LERP = 0.4;
 
             window.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
                 if (!hasMoved) {
-                    gsap.to(cursor, { opacity: 1, duration: 0.3 });
+                    cursorX = mouseX;
+                    cursorY = mouseY;
+                    cursor.style.opacity = '1';
                     hasMoved = true;
                 }
+            }, { passive: true });
 
-                gsap.to(cursor, {
-                    x: e.clientX,
-                    y: e.clientY,
-                    duration: 0.15,
-                    ease: "power2.out",
-                    overwrite: "auto"
-                });
-            });
+            window.addEventListener('mousedown', () => { scale = 0.75; }, { passive: true });
+            window.addEventListener('mouseup', () => { scale = 1; }, { passive: true });
 
-            window.addEventListener('mousedown', () => gsap.to(cursor, { scale: 0.8, duration: 0.1, overwrite: "auto" }));
-            window.addEventListener('mouseup', () => gsap.to(cursor, { scale: 1, duration: 0.1, overwrite: "auto" }));
+            // GPU-composited render loop — transform3d skips layout/paint entirely
+            let currentScale = 1;
+            function render() {
+                cursorX += (mouseX - cursorX) * LERP;
+                cursorY += (mouseY - cursorY) * LERP;
+                currentScale += (scale - currentScale) * 0.3;
+                cursor.style.transform = `translate3d(${cursorX - 16}px, ${cursorY - 16}px, 0) scale(${currentScale})`;
+                requestAnimationFrame(render);
+            }
+            requestAnimationFrame(render);
         });
     </script>
     <!-- END PREMIUM CURSOR BLOCK -->
