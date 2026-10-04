@@ -368,8 +368,8 @@ section {
   justify-content: center;
   padding: var(--space-3) var(--space-6);
   border-radius: var(--radius-full);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
   color: var(--color-text-primary);
   font-weight: var(--font-weight-medium);
   font-size: var(--font-size-base);
@@ -448,7 +448,7 @@ section {
 }
 .node:hover {
   border-color: rgba(255, 255, 255, 0.55);
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--glass-bg-hover);
   color: var(--color-text-primary);
   box-shadow: 0 8px 32px rgba(255, 255, 255, 0.25), var(--glass-shadow);
 }
@@ -586,9 +586,9 @@ section {
   gap: var(--space-6);
   align-items: flex-start;
   padding: var(--space-8);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-xl);
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--glass-bg);
   backdrop-filter: blur(12px) saturate(1.2);
   -webkit-backdrop-filter: blur(12px) saturate(1.2);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
@@ -1065,7 +1065,7 @@ section {
 }
 
 /* bg-tertiary utility */
-.bg-tertiary { background: rgba(255,255,255,0.02); }
+.bg-tertiary { background: var(--glass-bg); }
 
 /* Profile page styles used in client */
 .profile-header {
@@ -1098,7 +1098,7 @@ section {
 }
 .tag {
   padding: var(--space-1) var(--space-3);
-  background: rgba(255,255,255,0.05);
+  background: var(--glass-bg);
   border: 1px solid var(--color-border-default);
   border-radius: var(--radius-full);
   font-size: var(--font-size-sm);

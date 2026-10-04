@@ -140,13 +140,25 @@
     var P_MAX_POOL = 70;           // max alive particles (GC protection)
 
     // Luminous ethereal palette matching the editorial accent gradient
-    var P_COLORS = [
-      [199, 210, 254],  // indigo-200
-      [165, 180, 252],  // indigo-300
-      [129, 140, 248],  // indigo-400
-      [224, 231, 255],  // indigo-100 highlight
-      [139, 92, 246]    // violet-500 subtle accent
-    ];
+    
+    function getParticleColors() {
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+      return isLight ? [
+        [79, 70, 229], // indigo-600
+        [67, 56, 202], // indigo-700
+        [99, 102, 241], // indigo-500
+        [129, 140, 248], // indigo-400
+        [168, 85, 247]  // purple-500
+      ] : [
+        [199, 210, 254],  // indigo-200
+        [165, 180, 252],  // indigo-300
+        [129, 140, 248],  // indigo-400
+        [224, 231, 255],  // indigo-100 highlight
+        [139, 92, 246]    // violet-500
+      ];
+    }
+    var P_COLORS = getParticleColors();
+    
 
     // ── Canvas Setup ──
     var ctx = null;
@@ -292,6 +304,7 @@
     }
 
     function startLoop() {
+      P_COLORS = getParticleColors();
       if (!rafId) {
         if (canvas) canvas.classList.add('active');
         rafId = requestAnimationFrame(render);
@@ -573,7 +586,7 @@
 
           if (dist < connectionDist) {
             var alpha = (1 - dist / connectionDist) * 0.15;
-            ctx.strokeStyle = 'rgba(99, 102, 241, ' + alpha + ')';
+            ctx.strokeStyle = `rgba(${document.documentElement.getAttribute('data-theme') === 'light' ? '79,70,229' : '99,102,241'}, ${alpha})`;
             ctx.lineWidth = 0.5;
             ctx.beginPath();
             ctx.moveTo(nodes[i].x, nodes[i].y);
@@ -585,7 +598,7 @@
 
       // Draw nodes
       nodes.forEach(function (node) {
-        ctx.fillStyle = 'rgba(129, 140, 248, 0.3)';
+        ctx.fillStyle = document.documentElement.getAttribute('data-theme') === 'light' ? 'rgba(99,102,241,0.5)' : 'rgba(129, 140, 248, 0.3)';
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
         ctx.fill();
@@ -604,7 +617,7 @@
 
           if (dist < 150) {
             var alpha = (1 - dist / 150) * 0.3;
-            ctx.strokeStyle = 'rgba(99, 102, 241, ' + alpha + ')';
+            ctx.strokeStyle = `rgba(${document.documentElement.getAttribute('data-theme') === 'light' ? '79,70,229' : '99,102,241'}, ${alpha})`;
             ctx.lineWidth = 0.8;
             ctx.beginPath();
             ctx.moveTo(localMX, localMY);

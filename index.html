@@ -22,6 +22,16 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <!-- GSAP + Plugins -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollToPlugin.min.js"></script>
+
+    <!-- Fix for Scroll Snapping (overrides conflicting global smooth scroll) -->
+    <style>
+        html { scroll-behavior: auto !important; }
+    </style>
+
     <!-- Premium Animations Override -->
     <style>
         /* Smooth Staggered Reveal */
@@ -69,7 +79,7 @@
 
         /* Premium Nav Links */
         .nav-link-standard {
-            color: rgba(255, 255, 255, 0.85);
+            color: var(--color-text-primary);
             text-decoration: none;
             font-size: 0.875rem;
             letter-spacing: 0.025em;
@@ -84,13 +94,13 @@
         .nav-link-cta {
             position: relative;
             overflow: hidden;
-            color: rgba(255, 255, 255, 0.9);
+            color: var(--color-text-primary);
             text-decoration: none;
             font-size: 0.875rem;
             letter-spacing: 0.025em;
             padding: 0.6rem 1.5rem;
             border-radius: 9999px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid var(--glass-border);
             background-color: transparent;
             transition: color 0.5s cubic-bezier(0.19, 1, 0.22, 1), border-color 0.5s cubic-bezier(0.19, 1, 0.22, 1);
             display: inline-flex;
@@ -212,9 +222,9 @@
 
     <!-- Navbar -->
     <header
-        style="position: fixed; top: 1.5rem; left: 0; right: 0; margin: 0 auto; width: calc(100% - 3rem); max-width: 64rem; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; z-index: 100; background-color: rgba(0, 0, 0, 0.6); -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 9999px; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3); transform: translateZ(0); isolation: isolate;">
+        style="position: fixed; top: 1.5rem; left: 0; right: 0; margin: 0 auto; width: calc(100% - 3rem); max-width: 64rem; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; z-index: 100; background-color: var(--glass-bg); -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 9999px; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3); transform: translateZ(0); isolation: isolate;">
         <a href="./index.html" class="logo brand-name"
-            style="text-decoration: none; font-size: 1.5rem; font-weight: bold; color: white;">SkillLink</a>
+            style="text-decoration: none; font-size: 1.5rem; font-weight: bold; color: var(--color-text-primary);">SkillLink</a>
         <nav class="nav-links" style="display: flex; justify-content: center; align-items: center; gap: 1.5rem;">
             <a href="./pages/client.html" class="nav-link-standard cursor-none">Explore Talent</a>
             <a href="./pages/client.html" class="nav-link-standard cursor-none">Request Service</a>
@@ -324,12 +334,12 @@
             </div>
 
             <!-- INTERACTIVE DOT GRID BACKGROUND (LOCKED TO VIEWPORT) -->
-            <div id="hero-interactive-bg" class="fixed inset-0 overflow-hidden bg-[#05050A] pointer-events-none"
+            <div id="hero-interactive-bg" class="fixed inset-0 overflow-hidden bg-[var(--interactive-bg)] pointer-events-none"
                 style="z-index: -1; --x: 50%; --y: 42%;">
 
                 <!-- Layer 1: Dim base dot grid -->
                 <div class="absolute inset-0 opacity-[0.16]"
-                    style="background-image: radial-gradient(rgba(255,255,255,0.9) 1px, transparent 1px); background-size: 22px 22px;">
+                    style="background-image: radial-gradient(var(--interactive-dim-dot) 1px, transparent 1px); background-size: 22px 22px;">
                 </div>
 
                 <div class="interactive-grid-dots" aria-hidden="true" style="background-image: radial-gradient(rgba(255,255,255,0.4) 1px, transparent 1px); 
@@ -404,26 +414,51 @@
                 </div>
 
                 <!-- Action Cards (moved into Hero) -->
-                <div class="two-worlds-grid stagger-3"
-                    style="width: 92vw; max-width: 92vw; position: relative; z-index: 20; padding: 0 1rem; margin-bottom: 2rem;">
-                    <div class="world-card world-client fade-up"
-                        style="padding: 2rem 4rem; background: rgba(15, 15, 15, 0.65); -webkit-backdrop-filter: blur(20px) saturate(1.4); backdrop-filter: blur(20px) saturate(1.4); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); align-items: center; text-align: center;">
-                        <h3 class="text-3xl font-bold text-white mb-4">Find Local Help</h3>
-                        <p class="text-zinc-400 mb-8 mx-auto leading-relaxed" style="max-width: 28rem;">Connect with trusted, background-checked professionals in your local area for immediate, reliable service. Whether you need urgent home repairs, expert consulting, or specialized labor, post your requirements and find the perfect match instantly.</p>
-                        <a href="./pages/client.html" class="magnetic group relative inline-block overflow-hidden rounded-full bg-white px-8 py-3 font-semibold text-black">
-                            <!-- The Expanding Black Circle -->
+                <style>
+                    /* Prevent ghost lines and clipping on these specific cards when animating */
+                    #hero-card-client::before, #hero-card-client::after,
+                    #hero-card-provider::before, #hero-card-provider::after {
+                        display: none !important;
+                    }
+                </style>
+                <!-- Action Cards -->
+                <div class="two-worlds-grid stagger-3" style="width: 92vw; max-width: 92vw; position: relative; z-index: 20; padding: 0 1rem; margin-bottom: 2rem;">
+                    
+                    <!-- Left Card -->
+                    <div id="hero-card-client" class="world-card world-client" style="position: relative; padding: 2rem 4rem; display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; background: transparent !important; border: none !important; box-shadow: none !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; overflow: visible !important;">
+                        
+                        <!-- Splittable Background -->
+                        <div class="splittable-left" style="position: absolute; inset: 0; background: rgba(15, 15, 15, 0.65); -webkit-backdrop-filter: blur(20px) saturate(1.4); backdrop-filter: blur(20px) saturate(1.4); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); border-radius: 1rem; z-index: 0;"></div>
+                        
+                        <!-- Splittable Text -->
+                        <div class="splittable-left" style="position: relative; z-index: 10; width: 100%; flex-grow: 1;">
+                            <h3 class="text-3xl font-bold text-white mb-4">Find Local Help</h3>
+                            <p class="text-zinc-400 mb-8 mx-auto leading-relaxed" style="max-width: 28rem;">Connect with trusted, background-checked professionals in your local area for immediate, reliable service. Whether you need urgent home repairs, expert consulting, or specialized labor, post your requirements and find the perfect match instantly.</p>
+                        </div>
+                        
+                        <!-- Migrating Button (Stays put relative to card until scroll) -->
+                        <a href="./pages/client.html" id="hero-btn-request" class="magnetic group relative inline-block overflow-hidden rounded-full bg-white px-8 py-3 font-semibold text-black" style="z-index: 30; position: relative; margin-top: auto;">
                             <span class="absolute left-1/2 top-1/2 z-0 h-[300%] w-[300%] -translate-x-1/2 -translate-y-1/2 scale-0 rounded-full bg-[#030305] transition-transform duration-500 ease-out group-hover:scale-100"></span>
-                            
-                            <!-- The Text (Forced to stay on top) -->
-                            <span class="relative z-10 transition-colors duration-300 group-hover:text-white">Request Help</span>
+                            <span class="relative z-10 transition-colors duration-300 group-hover:text-white whitespace-nowrap">Request Help</span>
                         </a>
                     </div>
-                    <div class="world-card world-provider fade-up delay-1"
-                        style="padding: 2rem 4rem; background: rgba(15, 15, 15, 0.65); -webkit-backdrop-filter: blur(20px) saturate(1.4); backdrop-filter: blur(20px) saturate(1.4); border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); align-items: center; text-align: center;">
-                        <h3 class="text-3xl font-bold text-white mb-4">Offer Your Skills</h3>
-                        <p class="text-zinc-400 mb-8 mx-auto leading-relaxed" style="max-width: 28rem;">Join our growing network of verified professionals to find consistent work opportunities. Build a stellar reputation with your neighbors, manage your own schedule, and maximize your earning potential right in your own community.</p>
-                        <a href="./pages/provider.html" class="btn btn-secondary magnetic"><span
-                                style="position: relative; z-index: 10;">Register Your Skills</span></a>
+                    
+                    <!-- Right Card -->
+                    <div id="hero-card-provider" class="world-card world-provider" style="position: relative; padding: 2rem 4rem; display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; background: transparent !important; border: none !important; box-shadow: none !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; overflow: visible !important;">
+                        
+                        <!-- Splittable Background -->
+                        <div class="splittable-right" style="position: absolute; inset: 0; background: rgba(15, 15, 15, 0.65); -webkit-backdrop-filter: blur(20px) saturate(1.4); backdrop-filter: blur(20px) saturate(1.4); border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); border-radius: 1rem; z-index: 0;"></div>
+                        
+                        <!-- Splittable Text -->
+                        <div class="splittable-right" style="position: relative; z-index: 10; width: 100%; flex-grow: 1;">
+                            <h3 class="text-3xl font-bold text-white mb-4">Offer Your Skills</h3>
+                            <p class="text-zinc-400 mb-8 mx-auto leading-relaxed" style="max-width: 28rem;">Join our growing network of verified professionals to find consistent work opportunities. Build a stellar reputation with your neighbors, manage your own schedule, and maximize your earning potential right in your own community.</p>
+                        </div>
+                        
+                        <!-- Migrating Button -->
+                        <a href="./pages/provider.html" id="hero-btn-register" class="btn btn-secondary magnetic" style="z-index: 30; position: relative; margin-top: auto;">
+                            <span style="position: relative; z-index: 10;" class="whitespace-nowrap">Register Your Skills</span>
+                        </a>
                     </div>
                 </div>
 
@@ -471,7 +506,7 @@
 
                     <!-- Card 01 -->
                     <div class="sticky-card spotlight-block transition-opacity duration-700 ease-in-out"
-                        style="position: sticky; top: 10vh; z-index: 1; margin-bottom: 5vh; border-radius: 24px; overflow: hidden; background: linear-gradient(180deg, rgba(20, 20, 28, 0.88) 0%, rgba(10, 10, 14, 0.94) 100%); -webkit-backdrop-filter: blur(24px) saturate(1.2); backdrop-filter: blur(24px) saturate(1.2); padding: 0; border: 1px solid rgba(255, 255, 255, 0.18); box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.35), 0 0 35px -4px rgba(255, 255, 255, 0.12), 0 0 80px -8px rgba(255, 255, 255, 0.07), 0 25px 60px -15px rgba(0, 0, 0, 0.95);">
+                        style="position: sticky; top: 10vh; z-index: 1; margin-bottom: 5vh; border-radius: 24px; overflow: hidden; background: linear-gradient(180deg, rgba(20, 20, 28, 0.88) 0%, rgba(10, 10, 14, 0.94) 100%); -webkit-backdrop-filter: blur(24px) saturate(1.2); backdrop-filter: blur(24px) saturate(1.2); padding: 0; border: 1px solid rgba(255, 255, 255, 0.18); box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.35), 0 0 35px -4px var(--interactive-glow), 0 0 80px -8px rgba(255, 255, 255, 0.07), 0 25px 60px -15px rgba(0, 0, 0, 0.95);">
                         <div style="position: relative; display: flex; flex-wrap: wrap; min-height: 440px;">
                             <!-- Edge-to-Edge Blended Art -->
                             <div class="card-art-container"
@@ -510,7 +545,7 @@
 
                     <!-- Card 02 -->
                     <div class="sticky-card spotlight-block transition-opacity duration-700 ease-in-out"
-                        style="position: sticky; top: 12vh; z-index: 2; margin-bottom: 5vh; border-radius: 24px; overflow: hidden; background: linear-gradient(180deg, rgba(20, 20, 28, 0.88) 0%, rgba(10, 10, 14, 0.94) 100%); -webkit-backdrop-filter: blur(24px) saturate(1.2); backdrop-filter: blur(24px) saturate(1.2); padding: 0; border: 1px solid rgba(255, 255, 255, 0.18); box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.35), 0 0 35px -4px rgba(255, 255, 255, 0.12), 0 0 80px -8px rgba(255, 255, 255, 0.07), 0 25px 60px -15px rgba(0, 0, 0, 0.95);">
+                        style="position: sticky; top: 12vh; z-index: 2; margin-bottom: 5vh; border-radius: 24px; overflow: hidden; background: linear-gradient(180deg, rgba(20, 20, 28, 0.88) 0%, rgba(10, 10, 14, 0.94) 100%); -webkit-backdrop-filter: blur(24px) saturate(1.2); backdrop-filter: blur(24px) saturate(1.2); padding: 0; border: 1px solid rgba(255, 255, 255, 0.18); box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.35), 0 0 35px -4px var(--interactive-glow), 0 0 80px -8px rgba(255, 255, 255, 0.07), 0 25px 60px -15px rgba(0, 0, 0, 0.95);">
                         <div style="position: relative; display: flex; flex-wrap: wrap; min-height: 440px;">
                             <!-- Edge-to-Edge Blended Art -->
                             <div class="card-art-container"
@@ -549,7 +584,7 @@
 
                     <!-- Card 03 -->
                     <div class="sticky-card spotlight-block transition-opacity duration-700 ease-in-out"
-                        style="position: sticky; top: 14vh; z-index: 3; margin-bottom: 5vh; border-radius: 24px; overflow: hidden; background: linear-gradient(180deg, rgba(20, 20, 28, 0.88) 0%, rgba(10, 10, 14, 0.94) 100%); -webkit-backdrop-filter: blur(24px) saturate(1.2); backdrop-filter: blur(24px) saturate(1.2); padding: 0; border: 1px solid rgba(255, 255, 255, 0.18); box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.35), 0 0 35px -4px rgba(255, 255, 255, 0.12), 0 0 80px -8px rgba(255, 255, 255, 0.07), 0 25px 60px -15px rgba(0, 0, 0, 0.95);">
+                        style="position: sticky; top: 14vh; z-index: 3; margin-bottom: 5vh; border-radius: 24px; overflow: hidden; background: linear-gradient(180deg, rgba(20, 20, 28, 0.88) 0%, rgba(10, 10, 14, 0.94) 100%); -webkit-backdrop-filter: blur(24px) saturate(1.2); backdrop-filter: blur(24px) saturate(1.2); padding: 0; border: 1px solid rgba(255, 255, 255, 0.18); box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.35), 0 0 35px -4px var(--interactive-glow), 0 0 80px -8px rgba(255, 255, 255, 0.07), 0 25px 60px -15px rgba(0, 0, 0, 0.95);">
                         <div style="position: relative; display: flex; flex-wrap: wrap; min-height: 440px;">
                             <!-- Edge-to-Edge Blended Art -->
                             <div class="card-art-container"
@@ -600,12 +635,12 @@
             </p>
 
             <!-- Inline Action Buttons -->
-            <div class="mt-8 flex flex-wrap items-center justify-center gap-4"
+            <div class="mt-8 flex flex-wrap items-center justify-center gap-4" id="marketplace-bridge"
                 style="margin-top: 2rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 1rem;">
-                <a href="./pages/client.html"
+                <a href="./pages/client.html" id="target-btn-request"
                     class="btn btn-invert transition-colors duration-800 text-white hover:text-black magnetic"><span
                         style="position: relative; z-index: 10;">Request Service</span></a>
-                <a href="./pages/provider.html"
+                <a href="./pages/provider.html" id="target-btn-register"
                     class="btn btn-invert transition-colors duration-800 text-white hover:text-black magnetic"><span
                         style="position: relative; z-index: 10;">Register Capability</span></a>
             </div>
@@ -690,7 +725,7 @@
             let cursorX = 0, cursorY = 0;
             let hasMoved = false;
             let scale = 1;
-            const LERP = 0.4;
+            const LERP = 0.85;
 
             window.addEventListener('mousemove', (e) => {
                 mouseX = e.clientX;
@@ -724,7 +759,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-                gsap.registerPlugin(ScrollTrigger);
+                gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
                 // Ensure beam line is 100% hidden at page load / top of page
                 gsap.set(".lamp-beam-line", { opacity: 0, scaleY: 0, transformOrigin: "top center" });
@@ -833,6 +868,144 @@
     </script>
     <!-- END SCROLL-LINKED LIGHT ANIMATION -->
 
+    <!-- START PREMIUM HERO ANIMATIONS & BUTTON MIGRATION -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+                
+                // 1. HERO CARDS SPLIT & FADE ("Bomb blast / Door split")
+                const heroSplitTl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: "body",
+                        start: "top top", 
+                        endTrigger: "#narrative",
+                        end: "center center", 
+                        scrub: 0.5,
+                        // We removed built-in snap because it requires scroll to stop first.
+                        // We will use an instant scroll hijacker below!
+                    }
+                });
+
+                // INSTANT SCROLL HIJACKER (Fires immediately on small scroll)
+                let isAutoScrolling = false;
+                window.addEventListener("wheel", (e) => {
+                    if (isAutoScrolling) {
+                        e.preventDefault();
+                        return;
+                    }
+                    
+                    const narrative = document.querySelector("#narrative");
+                    if (!narrative) return;
+                    
+                    // Calculate exact scroll position for center of narrative
+                    const narrativeCenter = narrative.offsetTop - (window.innerHeight / 2) + (narrative.offsetHeight / 2);
+
+                    // 1. Scroll Down from Top
+                    if (window.scrollY < 150 && e.deltaY > 0) {
+                        e.preventDefault();
+                        isAutoScrolling = true;
+                        gsap.to(window, {
+                            scrollTo: narrativeCenter,
+                            duration: 1.8,
+                            ease: "power3.inOut",
+                            onComplete: () => setTimeout(() => isAutoScrolling = false, 100)
+                        });
+                    } 
+                    // 2. Scroll Up from Narrative
+                    else if (Math.abs(window.scrollY - narrativeCenter) < 250 && e.deltaY < 0) {
+                        e.preventDefault();
+                        isAutoScrolling = true;
+                        gsap.to(window, {
+                            scrollTo: 0,
+                            duration: 1.8,
+                            ease: "power3.inOut",
+                            onComplete: () => setTimeout(() => isAutoScrolling = false, 100)
+                        });
+                    }
+                }, { passive: false });
+
+                // Left card flies up-left and fades
+                heroSplitTl.to(".splittable-left", {
+                    x: "-25vw",
+                    y: "-15vh",
+                    rotation: -10,
+                    opacity: 0,
+                    scale: 1.05,
+                    ease: "none"
+                }, 0);
+                
+                // Right card flies up-right and fades
+                heroSplitTl.to(".splittable-right", {
+                    x: "25vw",
+                    y: "-15vh",
+                    rotation: 10,
+                    opacity: 0,
+                    scale: 1.05,
+                    ease: "none"
+                }, 0);
+
+                // 2. BUTTON MIGRATION
+                const heroReq = document.getElementById('hero-btn-request');
+                const heroReg = document.getElementById('hero-btn-register');
+                const targetReq = document.getElementById('target-btn-request');
+                const targetReg = document.getElementById('target-btn-register');
+
+                if (heroReq && heroReg && targetReq && targetReg) {
+                    
+                    // Hide target buttons immediately so they act only as invisible placeholders
+                    gsap.set([targetReq, targetReg], { opacity: 0 });
+
+                    // Helper to get absolute page coordinates
+                    function getPageOffset(el) {
+                        const rect = el.getBoundingClientRect();
+                        const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+                        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                        return {
+                            top: rect.top + scrollTop,
+                            left: rect.left + scrollLeft,
+                            width: rect.width,
+                            height: rect.height
+                        };
+                    }
+
+                    // We use functional values so they recalculate on resize via invalidateOnRefresh
+                    const migrationTl = gsap.timeline({
+                        scrollTrigger: {
+                            trigger: "body",
+                            start: "top top", 
+                            endTrigger: "#marketplace-bridge", // animate exactly until the bridge is reached
+                            end: "center center",
+                            scrub: 0.5,
+                            invalidateOnRefresh: true, // recalculate distances if window resizes
+                        }
+                    });
+
+                    migrationTl.to(heroReq, {
+                        x: () => getPageOffset(targetReq).left - getPageOffset(heroReq).left,
+                        y: () => getPageOffset(targetReq).top - getPageOffset(heroReq).top,
+                        // Morph the styling slightly to match the target button
+                        backgroundColor: "transparent",
+                        color: "#ffffff",
+                        borderColor: "rgba(255,255,255,0.2)",
+                        ease: "none"
+                    }, 0);
+
+                    migrationTl.to(heroReg, {
+                        x: () => getPageOffset(targetReg).left - getPageOffset(heroReg).left,
+                        y: () => getPageOffset(targetReg).top - getPageOffset(heroReg).top,
+                        // Morph styling
+                        backgroundColor: "transparent",
+                        color: "#ffffff",
+                        borderColor: "rgba(255,255,255,0.2)",
+                        ease: "none"
+                    }, 0);
+                }
+            }
+        });
+    </script>
+    <!-- END PREMIUM HERO ANIMATIONS & BUTTON MIGRATION -->
+
+    <script src="/js/theme.js"></script>
 </body>
 
 </html>

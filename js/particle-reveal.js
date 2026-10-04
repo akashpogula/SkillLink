@@ -165,7 +165,7 @@
           scrollTrigger: {
             trigger: wrapper,
             start: "top 85%",
-            end: "top 45%",
+            end: "center center",
             scrub: 1, // Smoothly links to scroll position
             onUpdate: (self) => {
               // Simultaneously sync canvas particle convergence progress (0 -> 1)
